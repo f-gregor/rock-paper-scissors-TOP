@@ -10,94 +10,93 @@
         // console.log("Hello world!")
 
         function getComputerChoice() {
-            const choices = ["rock", "paper", "scissors"]
+            const choices = ["rock", "paper", "scissors"];
 
-            return choices.at(Math.random()*3)
+            return choices.at(Math.random()*3);
         }
 
         // console.log("The computer chose: " + getComputerChoice())
 
         function getHumanChoice () {
-            validChoice = false
+            let validChoice = true;
+            let choice = "";
 
-            while (!validChoice) {
-                choice = prompt("Make your choice! ( rock | paper | scissors ): ")
-                choice = choice.toLowerCase()
-
-                if (choice === 'rock' || choice === 'paper' || choice === 'scissors') {
-                    validChoice = true
+            do {
+                if (validChoice) {
+                    choice = prompt("Make your choice! (rock | paper | scissors ):");
                 } else {
-                    console.log('"' + choice + '" is not a valid entry. Please try again.')
+                    choice = prompt('Please retry, "' + choice + '" is not a valid entry.\n(choose between "rock", "paper" and "scissors")');
                 }
-            }
+                
+                choice = choice.toLowerCase();
+                validChoice = (choice === 'rock' || choice === 'paper' || choice === 'scissors');
 
-            return choice
+            } while (!validChoice)
+
+            return choice;
         }
 
         // console.log("The human chose: " + getHumanChoice())
 
         function capitalize (s){
-            return s.at(0).toUpperCase() + s.slice(1)
+            return s.at(0).toUpperCase() + s.slice(1);
         }
 
         function playRound () {
             const computerChoice = getComputerChoice();
             const humanChoice = getHumanChoice();
             let message;
-            let winner = "draw";
+            let winner;
 
             if (humanChoice === computerChoice) {
-                message = "It's a draw! Both have chosen " + capitalize(humanChoice) + "."
+                message = "It's a draw! Both have chosen " + capitalize(humanChoice) + ".";
             } else if ((humanChoice === 'paper' && computerChoice ==='rock') ||
                        (humanChoice === 'rock' && computerChoice ==='scissors') ||
                        (humanChoice === 'scissors' && computerChoice ==='paper')) {
-                message = "You won! " + capitalize(humanChoice) + " beats " + capitalize(computerChoice) + "!"
-                winner = "human"
+                message = "You won! " + capitalize(humanChoice) + " beats " + capitalize(computerChoice) + "!";
+                winner = "human";
             } else {
-                message = "You lose! " + capitalize(computerChoice) + " beats " + capitalize(humanChoice) + "!"
-                winner = "computer"
+                message = "You lose! " + capitalize(computerChoice) + " beats " + capitalize(humanChoice) + "!";
+                winner = "computer";
             }
 
-            console.log(message)
-            return winner
+            console.log(message);
+            return winner;
 
         }
 
         // playRound()
 
         function playGame() {
-            let roundNumber = 1
             let humanScore = 0;
             let computerScore = 0;
 
-            while (roundNumber < 6){
-                let winner = playRound()
+            for(let roundNumber = 1; roundNumber < 6; roundNumber++) {
+                let winner = playRound();
 
                 if (winner == "human") {
-                    humanScore++
+                    humanScore++;
                 } else if (winner == "computer") {
-                    computerScore++
+                    computerScore++;
                 }
 
-                console.log("Player's Score: " + humanScore + " | Computer's Score: " + computerScore)
-
-                roundNumber++
+                console.log("Player's Score: " + humanScore + " | Computer's Score: " + computerScore);
             }
 
-            let result;
+            let finalResult;
 
             if (humanScore > computerScore) {
-                result = "Congratulations! You WON!"
+                finalResult = "Congratulations! You WON!";
             } else if (humanScore == computerScore) {
-                result = "It's a draw! Neither of you prevailed."
+                finalResult = "It's a draw! Neither of you prevailed.";
             } else {
-                result = "Not your lucky day, the computer won."
+                finalResult = "Not your lucky day, the computer won.";
             }
             
-            console.log(result)
+            console.log(finalResult);
         }
 
-        playGame()
+        playGame();
 
 
     </script>
