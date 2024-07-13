@@ -3,101 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="card shadow">
+        <div id="button-container">
+            <button class="shadow rock">Rock</button>
+            <button class="shadow paper">Paper</button>
+            <button class="shadow scissors">Scissors</button>
+        </div>
+        <button class="shadow submit">Make your choice!</button>
+        <div id="message-container">
+        </div>    
+    </div>
+   
     <script>
-        // console.log("Hello world!")
+        const playerOptions = document.querySelectorAll("#button-container > button");
+        const messageContainer = document.querySelector("#message-container");
+        const submit = document.querySelector(".submit");
+        const MAX_SCORE = 5;
+        let currentChoice;
+        let humanScore = 0;
+        let computerScore = 0;
+
+        playerOptions.forEach((element) => {
+            element.addEventListener('click',() => {
+                if (currentChoice) currentChoice.classList.toggle('selected');
+                currentChoice = element
+                currentChoice.classList.toggle('selected');
+                submit.disabled = false;
+                submit.textContent = "Play!"
+            })
+        })
+
+        submit.disabled = true;
+        submit.addEventListener('click', playRound);
 
         function getComputerChoice() {
             const choices = ["rock", "paper", "scissors"];
-
             return choices.at(Math.random()*3);
         }
 
-        // console.log("The computer chose: " + getComputerChoice())
-
-        function getHumanChoice () {
-            let validChoice = true;
-            let choice = "";
-
-            do {
-                if (validChoice) {
-                    choice = prompt("Make your choice! (rock | paper | scissors ):");
-                } else {
-                    choice = prompt('Please retry, "' + choice + '" is not a valid entry.\n(choose between "rock", "paper" and "scissors")');
-                }
-                
-                choice = choice.toLowerCase();
-                validChoice = (choice === 'rock' || choice === 'paper' || choice === 'scissors');
-
-            } while (!validChoice)
-
-            return choice;
+        function getHumanChoice() {
+            return currentChoice.textContent.toLowerCase();
         }
 
-        // console.log("The human chose: " + getHumanChoice())
-
-        function capitalize (s){
-            return s.at(0).toUpperCase() + s.slice(1);
+        function capitalize (word){
+            return word.at(0).toUpperCase() + word.slice(1);
         }
 
         function playRound () {
             const computerChoice = getComputerChoice();
             const humanChoice = getHumanChoice();
-            let message;
-            let winner;
+            const messageDiv = document.createElement("div");
+            const messageText = document.createElement("p");
+            const messageScore = document.createElement("p");
+            let roundResult = "draw";
 
             if (humanChoice === computerChoice) {
-                message = "It's a draw! Both have chosen " + capitalize(humanChoice) + ".";
+                messageText.innerHTML = "<strong>It's a draw!</strong> Both played " + capitalize(humanChoice) + ".";
             } else if ((humanChoice === 'paper' && computerChoice ==='rock') ||
                        (humanChoice === 'rock' && computerChoice ==='scissors') ||
                        (humanChoice === 'scissors' && computerChoice ==='paper')) {
-                message = "You won! " + capitalize(humanChoice) + " beats " + capitalize(computerChoice) + "!";
-                winner = "human";
+                messageText.innerHTML = "<strong>You win!</strong> " + capitalize(humanChoice) + " beats " + capitalize(computerChoice) + "!";
+                roundResult = "win";
+                humanScore++;
+                
             } else {
-                message = "You lose! " + capitalize(computerChoice) + " beats " + capitalize(humanChoice) + "!";
-                winner = "computer";
+                messageText.innerHTML = "<strong>You lose! </strong>" + capitalize(computerChoice) + " beats " + capitalize(humanChoice) + "!";
+                roundResult = "loss";
+                computerScore++;
             }
 
-            console.log(message);
-            return winner;
+            if (humanScore > computerScore) {
+                messageScore.innerHTML = "<strong>Player | " + humanScore + "</strong> - " + computerScore + " | Computer"
+            } else if (humanScore == computerScore) {
+                messageScore.innerHTML = "Player | " + humanScore + " - " + computerScore + " | Computer"
+            } else {
+                messageScore.innerHTML = "Player | " + humanScore + " - <strong>" + computerScore + " | Computer</strong>"
+            }
+
+            messageDiv.classList.add("message", "shadow", roundResult);
+            messageDiv.appendChild(messageText);
+            messageDiv.appendChild(messageScore);
+            messageContainer.appendChild(messageDiv);
+
+            if (humanScore === MAX_SCORE || computerScore === MAX_SCORE) endMatch();
 
         }
 
-        // playRound()
-
-        function playGame() {
-            let humanScore = 0;
-            let computerScore = 0;
-
-            for(let roundNumber = 1; roundNumber < 6; roundNumber++) {
-                let winner = playRound();
-
-                if (winner == "human") {
-                    humanScore++;
-                } else if (winner == "computer") {
-                    computerScore++;
-                }
-
-                console.log("Player's Score: " + humanScore + " | Computer's Score: " + computerScore);
-            }
+        function endMatch() {
 
             let finalResult;
 
             if (humanScore > computerScore) {
                 finalResult = "Congratulations! You WON!";
-            } else if (humanScore == computerScore) {
-                finalResult = "It's a draw! Neither of you prevailed.";
             } else {
-                finalResult = "Not your lucky day, the computer won.";
+                finalResult = "Luck was not on your side, the computer won.";
             }
+
+            const messageDiv = document.createElement("div");
+            messageDiv.textContent = finalResult;
+            messageDiv.classList.add("message", "end-result", "shadow");
+            messageContainer.appendChild(messageDiv);
             
-            console.log(finalResult);
+            humanScore = 0;
+            computerScore = 0;
         }
 
-        playGame();
-
+        // playGame();
 
     </script>
 </body>

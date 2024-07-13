@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&family=Bungee&family=Zen+Kaku+Gothic+New&display=swap');
+
+
+body {
+    font-size: 16px;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #eef2ff;
+}
+
+p {
+    margin: 0;
+}
+
+.card {
+    background-color: white;
+    border-radius: 32px;
+    width: 700px;
+    padding: 32px;
+    margin: 32px;
+    display: flex;
+    flex-direction: column;
+}
+
+.shadow {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 3px;
+}
+
+#button-container{
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+button{
+    border-radius: 24px;
+    border: 0;
+    padding: 6px 10px;
+    flex: 1;
+    font-size: 36px;
+    background-color: #6366f1;
+    color: white;
+}
+
+.selected{
+    background-color: #4338ca;
+}
+
+.rock{
+    font-family: "bungee";
+}
+
+.paper{
+    font-family: "satisfy";
+}
+
+.scissors{
+    font-family: "zen kaku gothic new";
+}
+
+.submit{
+    background-color: #7e22ce;
+    font-weight: 700;
+    margin-bottom: 32px;
+}
+
+#message-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-self: stretch;
+}
+
+.message {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    border-radius: 12px;
+    padding: 12px 24px;
+}
+
+.draw {
+    background-color: #ffedd5;
+    color: #c2410c;
+}
+
+.win {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.loss {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.end-result {
+    margin-top: 16px;
+    background-color: #e9d5ff;
+    color: #7e22ce;
+    font-weight: 700;
+    font-size: 20px;
+    padding: 24px;
+}
