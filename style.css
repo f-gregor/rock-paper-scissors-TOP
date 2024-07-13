@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Satisfy&family=Bungee&family=Zen+Kaku+Gothic+New&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&family=Bungee&family=Stick&display=swap');
 
 
 body {
@@ -7,7 +7,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #eef2ff;
+    background-color: #bfdbfe;
 }
 
 p {
@@ -40,14 +40,15 @@ button{
     padding: 6px 10px;
     flex: 1;
     font-size: 36px;
-    background-color: #6366f1;
+    background-color: #2563eb;
     color: white;
+
 }
 
-.selected{
-    background-color: #4338ca;
+button:hover {
+    background-color: #1e40af;
+    transition: 0.2s;
 }
-
 .rock{
     font-family: "bungee";
 }
@@ -57,13 +58,7 @@ button{
 }
 
 .scissors{
-    font-family: "zen kaku gothic new";
-}
-
-.submit{
-    background-color: #7e22ce;
-    font-weight: 700;
-    margin-bottom: 32px;
+    font-family: "stick";
 }
 
 #message-container {
